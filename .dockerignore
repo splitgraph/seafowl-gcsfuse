@@ -1,0 +1,5 @@
+# don't need to copy Dockerfile
+Dockerfile
+
+# configs should get mounted anyway
+configs
