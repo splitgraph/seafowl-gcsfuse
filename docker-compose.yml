@@ -1,0 +1,14 @@
+version: '3'
+services:
+  seafowl-gcsfuse:
+    image: pskinner/seafowl-gcsfuse:0.0.19
+    volumes:
+      - /home/ubuntu/seafowl-gcsfuse-a48fb529f867.json:/tmp/creds.json:ro
+      - /home/ubuntu/seafowl-gcsfuse/configs/seafowl.toml:/app/config/seafowl.toml:ro
+    environment:
+      - BUCKET=seafowl-gcsfuse
+      - GOOGLE_APPLICATION_CREDENTIALS=/tmp/creds.json
+      - RUST_LOG=debug
+    privileged: true
+    ports:
+      - '8888:8080'
