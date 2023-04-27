@@ -52,25 +52,8 @@ COPY . ./
 # seafowl.toml to /app/seafowl.toml
 # IMPORTANT: make sure to set bind_host to 0.0.0.0 because containers
 RUN \
-mkdir /app/config; \
-cat > /app/config/seafowl.toml <<EOF
-[object_store]
-type = "local"
-data_dir = "/app/seafowl-data"
-
-[catalog]
-type = "sqlite"
-dsn = "sqlite:///app/seafowl-data/seafowl.sqlite"
-
-[frontend.http]
-# Listen on all interfaces so that we are accessible over Docker
-bind_host = "0.0.0.0"
-
-# Disable write access by default, since the image user can derive an image
-# from this and use the --one-off command to freeze a dataset, or
-# set the SEAFOWL__FRONTEND__HTTP__WRITE_ACCESS=some_sha envvar.
-write_access = "off"
-EOF
+    mkdir /app/config; \
+    mv seafowl.toml /app/config/seafowl.toml
 
 # Ensure the script is executable
 RUN chmod +x gcsfuse_run.sh

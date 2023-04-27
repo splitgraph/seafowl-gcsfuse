@@ -1,0 +1,20 @@
+# Dummy config intended to be replaced
+# This lets `seafowl` start in the container, 
+# even when the user didn't override with their own config
+
+[object_store]
+type = "local"
+data_dir = "/app/seafowl-data"
+
+[catalog]
+type = "sqlite"
+dsn = "sqlite:///app/seafowl-data/seafowl.sqlite"
+
+[frontend.http]
+# Listen on all interfaces so that we are accessible over Docker
+bind_host = "0.0.0.0"
+
+# Disable write access by default, since the image user can derive an image
+# from this and use the --one-off command to freeze a dataset, or
+# set the SEAFOWL__FRONTEND__HTTP__WRITE_ACCESS=some_sha envvar.
+write_access = "off"
