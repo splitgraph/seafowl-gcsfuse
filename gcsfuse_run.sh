@@ -6,9 +6,9 @@ mkdir -p $MNT_DIR
 
 echo "Mounting GCS Fuse."
 if [ -z "$RUN_SEAFOWL_READ_ONLY" ]; then
-gcsfuse --debug_gcs --debug_fuse $BUCKET $MNT_DIR
+gcsfuse --debug_gcs --debug_fuse --debug_http $BUCKET $MNT_DIR
 else
-gcsfuse --debug_gcs --debug_fuse -o ro $BUCKET $MNT_DIR
+gcsfuse --debug_gcs --debug_fuse --debug_http -o ro $BUCKET $MNT_DIR
 fi
 echo "Mounting completed."
 
