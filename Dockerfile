@@ -40,9 +40,15 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 
 # Fetch and decompress Seafowl binary
+# Currently we get the nightly but if a fixed release is needed, see next RUN
 RUN set -e; \
-    curl -L https://github.com/splitgraph/seafowl/releases/download/v0.3.3/seafowl-v0.3.3-x86_64-unknown-linux-gnu.tar.gz \
-    | tar -xz
+    curl -L https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-unknown-linux-gnu.zip \
+    | gunzip > seafowl; \
+    chmod +x seafowl
+
+# RUN set -e; \
+#     curl -L https://github.com/splitgraph/seafowl/releases/download/v0.3.3/seafowl-v0.3.3-x86_64-unknown-linux-gnu.tar.gz \
+#     | tar -xz
 
 # Copy seafowl + gcsfuse_run.sh to the container
 COPY . ./
