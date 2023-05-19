@@ -76,7 +76,7 @@ gcloud projects add-iam-policy-binding seafowl-gcsfuse \
 #### Write-enabled instance (deploy 1)
 ```shell
 gcloud run deploy seafowl-gcsfuse \
- --image pskinner/seafowl-gcsfuse \
+ --image splitgraph/seafowl-gcsfuse \
  --execution-environment gen2 \
  --allow-unauthenticated \
  --service-account seafowl-gcsfuse-identity \
@@ -85,11 +85,13 @@ gcloud run deploy seafowl-gcsfuse \
 ```
 
 #### Read-only instance (deploy as many as you like)
+```shell
 gcloud run deploy seafowl-gcsfuse-ro \
- --image pskinner/seafowl-gcsfuse \
+ --image splitgraph/seafowl-gcsfuse \
  --execution-environment gen2 \
  --allow-unauthenticated \
  --service-account seafowl-gcsfuse-identity \
  --update-secrets=/app/config/seafowl.toml=projects/<projectID>/secrets/seafowl-ro_toml:latest \
  --update-env-vars BUCKET=seafowl-gcsfuse \
  --update-env-vars RUN_SEAFOWL_READ_ONLY=true
+```
