@@ -1,10 +1,8 @@
 [object_store]
 # Point to a GCS bucket. NOTE: we use HMAC auth interop
-type = "s3"
-access_key_id = "GOOG...changeme"
-secret_access_key = "changeme"
-endpoint = "https://storage.googleapis.com"
+type = "gcs"
 bucket = "seafowl-gcsfuse"
+google_application_credentials = "/app/seafowl-data/seafowl-gcsfuse.json"
 
 [catalog]
 type = "sqlite"
