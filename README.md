@@ -4,7 +4,7 @@ Because [Seafowl](https://seafowl.io/) was architected with the cloud in mind it
 
 Database objects can be stored in [S3 buckets](https://seafowl.io/docs/reference/seafowl-toml-configuration#type--s3), which avoids depending on a persistent volume. Meanwhile Seafowl's catalog can be [backed by SQLite](https://seafowl.io/docs/reference/seafowl-toml-configuration#type--sqlite), also good for the scale to zero story because it avoids the usual persistent Postgres process.
 
-Platforms like Lambda and Cloud Run will forward incoming HTTP requests to the waiting Seafowl service, which is the ideal time for it to load the up-to-date SQLite catalog so the request can be handled with fresh data.
+Platforms like Lambda and Cloud Run will forward incoming HTTP requests to the waiting Seafowl service, which is the ideal time for it to fetch the up-to-date SQLite catalog so the query can be handled with fresh data.
 
 By adding [gcsfuse](https://github.com/GoogleCloudPlatform/gcsfuse) to the Seafowl container, the SQLite file is mounted from the bucket into the Seafowl container. While there is a performance penalty in doing so, the catalog is only metadata, not the raw database objects, so the penalty (at least observed so far) is negligible. Plus, so long as traffic is within the same region, GCP doesn't charge for bucket <-> Cloud Run traffic, an additional bonus for hosting costs.
 
